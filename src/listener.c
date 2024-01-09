@@ -22,7 +22,6 @@ typedef struct {
 
 static void on_session_completed(PolkitAgentSession *session,
                                  gboolean authorized, Auth *auth);
-static void spawn_worker(Auth *auth);
 static void auth_free(Auth *auth);
 
 static void on_cancelled(GCancellable *cancellable, Auth *auth) {
@@ -77,16 +76,8 @@ static void on_session_completed(PolkitAgentSession *session,
     auth_free(auth);
   } else {
     new_session(auth);
-    spawn_worker(auth);
+    do_auth(auth);
   }
-}
-
-static void spawn_worker(Auth *auth) {
-  pthread_attr_t attr;
-  pthread_attr_init(&attr);
-  pthread_t worker;
-  pthread_create(&worker, &attr, (void *(*)(void *))do_auth, auth);
-  pthread_detach(worker);
 }
 
 static void
@@ -111,7 +102,7 @@ initiate_authentication(PolkitAgentListener *listener, const gchar *action_id,
   g_signal_connect(cancellable, "cancelled", G_CALLBACK(on_cancelled), auth);
 
   new_session(auth);
-  spawn_worker(auth);
+  do_auth(auth);
 }
 
 static gboolean initiate_authentication_finish(PolkitAgentListener *listener,
