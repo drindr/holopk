@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "util.h"
 
-const char* read_input(const char *const * argv, char* buffer, size_t buffer_size) {
+const char *read_input(const char *const *argv, char *buffer,
+                       size_t buffer_size) {
   int pipes[2];
   if (pipe(pipes) == -1) {
     fprintf(stderr, "failed to create pipes\n");
@@ -20,13 +22,13 @@ const char* read_input(const char *const * argv, char* buffer, size_t buffer_siz
     return NULL;
   }
 
-  if (child_pid == 0)  {
+  if (child_pid == 0) {
     // CHILD PROCESS
     dup2(pipe_write, STDOUT_FILENO);
     close(pipe_read);
     close(pipe_write);
 
-    if (execvp(argv[0], (void*)argv) == -1) {
+    if (execvp(argv[0], (void *)argv) == -1) {
       fprintf(stderr, "failed to launch program: %s\n", argv[0]);
       exit(1);
     }
@@ -40,6 +42,7 @@ const char* read_input(const char *const * argv, char* buffer, size_t buffer_siz
     if (len == -1) {
       fprintf(stderr, "failed to read stdout from child process\n");
       close(pipe_read);
+      wait(NULL);
       return NULL;
     } else {
       if (len != 0) {
@@ -50,6 +53,7 @@ const char* read_input(const char *const * argv, char* buffer, size_t buffer_siz
         buffer[0] = 0;
       }
       close(pipe_read);
+      wait(NULL);
       return buffer;
     }
   }
