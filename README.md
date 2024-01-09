@@ -8,9 +8,9 @@ Add this command to your compositor startup script or `.xinitrc`:
 `holopk <menu command, inlined>`
 
 ie. 
-`holopk dmenu`
-`holopk bemenu --password indicator`
-`holopk fuzzel --dmenu`
+`holopk dmenu` 
+`holopk bemenu --password indicator` 
+`holopk fuzzel --dmenu` 
 
 ### Example from my Hyprland config
 `exec-once = holopk fuzzel --dmenu --password=● --lines 0`
@@ -24,6 +24,6 @@ ie.
     meson install
 ```
 
-## Special thanks to (xfce-polkit)[https://github.com/ncopa/xfce-polkit]
+## Special thanks to [xfce-polkit](https://github.com/ncopa/xfce-polkit)
 I used it as a reference
 
