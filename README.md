@@ -7,7 +7,7 @@ Polkit agent that uses whatever dmenu compatible command you provide as a prompt
 Add this command to your compositor startup script or `.xinitrc`:  
 `holopk <menu command, inlined>`
 
-ie. 
+ie.  
 `holopk dmenu`  
 `holopk bemenu --password indicator`  
 `holopk fuzzel --dmenu`  
