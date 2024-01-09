@@ -31,3 +31,5 @@ ie.
 ## Special thanks to [xfce-polkit](https://github.com/ncopa/xfce-polkit)
 I used it as a reference
 
+## Question to people who know polkit better than me
+Is it important to be able to pick identities?
