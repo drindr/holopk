@@ -4,13 +4,13 @@ Polkit agent that uses whatever dmenu compatible command you provide as a prompt
 
 # Usage
 
-Add this command to your compositor startup script or `.xinitrc`:
+Add this command to your compositor startup script or `.xinitrc`:  
 `holopk <menu command, inlined>`
 
 ie. 
-`holopk dmenu` 
-`holopk bemenu --password indicator` 
-`holopk fuzzel --dmenu` 
+`holopk dmenu`  
+`holopk bemenu --password indicator`  
+`holopk fuzzel --dmenu`  
 
 ### Example from my Hyprland config
 `exec-once = holopk fuzzel --dmenu --password=● --lines 0`
